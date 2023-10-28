@@ -1,3 +1,4 @@
+
 import os
 import pickle
 import random
@@ -18,10 +19,11 @@ def input_username():
             clear()
             print(f"Welcome back, {existing_user['username']}!")
             time.sleep(1)
-            print(f"Your score is {existing_user['score']}")
-            time.sleep(1)
-            print("\t\t\tStarting the game...")
-            progress_bar(20, 5)
+            print(f"Your score is {existing_user['score']} points.")
+            time.sleep(2)
+            clear()
+            print("\tStarting the game...")
+            progress_bar(10, 5)
             clear()
             return username
 
@@ -47,9 +49,10 @@ def input_username():
                 time.sleep(2)
                 clear()
                 time.sleep(1)
-                print("\t\t\tStarting the game...")
+                print("\tStarting the game...")
                 progress_bar(20, 5)
                 time.sleep(2)
+                clear()
                 return username
 
 
@@ -90,6 +93,20 @@ def get_user(username):
     return None
 
 
+def get_users():
+    database = load_database()
+    sorted_users = sorted(database, key=lambda x: x['score'], reverse=True)
+    users = []
+    for user in sorted_users:
+        users.append({
+            'username': user['username'],
+            'score': user['score']
+        })
+    return users
+
+
+
+
 def get_user_score(username):
     database = load_database()
     for user in database:
@@ -107,7 +124,7 @@ def update_user_score(username, score):
     save_database(database)
 
 
-def game_rules(user_input, username):
+def game_rules(username):
     computer_choice = random.randint(0, 1)
     life = 10
     while life > 0:
