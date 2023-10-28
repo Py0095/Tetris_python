@@ -125,7 +125,7 @@ def update_user_score(username, score):
 
 
 def game_rules(username):
-    computer_choice = random.randint(0, 1)
+    computer_choice = random.randint(0, 100)
     life = 10
     while life > 0:
         old_score = get_user_score(username)
